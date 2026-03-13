@@ -33,7 +33,7 @@ const students = [
    { id: 5, name: "Arjun", marks: 40 }
  ];
 
-    //1. filter() students who passed (marks ≥ 40)
+//1. filter() students who passed (marks ≥ 40)
     let r1=students.filter(student=>student.marks>=40)
     console.log("students who passed are ",r1)
 //2. map() to add a grade field

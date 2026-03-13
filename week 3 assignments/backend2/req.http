@@ -1,0 +1,78 @@
+### read all users(REQ TO PROTECTED ROUTE)
+GET http://localhost:4000/user-api/users
+
+
+### read user by id
+GET http://localhost:4000/user-api/user
+
+
+### create new user
+POST http://localhost:4000/user-api/users
+Content-Type: application/json
+
+{
+  "username": "vamshi",
+  "password": "0908",
+  "email": "vamshi@gmail.com",
+  "age":19
+}
+
+### update user by id
+PUT http://localhost:4000/user-api/users/69aa655a584d3ef3d3e804f0
+Content-Type: application/json
+
+{
+  "username": "vamshi krishna",
+  "password": "123456",
+  "email": "vamshi@mail.com",
+  "age":20
+}
+
+###user login
+POST http://localhost:4000/user-api/auth
+Content-Type: application/json
+
+{
+  "email":"vamshi@gmail.com",
+  "password":"0908"
+}
+
+### delete user by id
+DELETE http://localhost:4000/user-api/users/69abfa651823fc9668f22fe1
+
+### add product to user cart
+PUT http://localhost:4000/user-api/cart/product-id/69aaa9365e24257e9aa13616
+
+### READ ALL PRODUCTS
+GET http://localhost:4000/product-api/products
+
+
+### READ PRODUCT BY productId
+GET http://localhost:4000/product-api/products/69aaa7c3da02c1944f7a3256
+
+
+### CREATE NEW PRODUCT
+POST http://localhost:4000/product-api/products
+Content-Type: application/json
+
+{
+  "productId":102,
+  "productName":"samsung s24",
+  "price":49000,
+  "brand":"samsung"
+}
+
+
+### UPDATE PRODUCT BY productId
+PUT http://localhost:4000/product-api/products/101
+Content-Type: application/json
+
+{
+  "productName":"iPhone 15 Pro",
+  "price":48000,
+  "brand":"Apple"
+}
+
+
+### DELETE PRODUCT BY productId
+DELETE http://localhost:4000/product-api/products/101
