@@ -1,0 +1,49 @@
+.user-card {
+  background-color: #ffffff;
+  border: 1px solid #e1e8ed;
+  border-top: 4px solid #0056b3; /* Blue top border */
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.user-image-container {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 10px;
+}
+
+.user-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #0056b3; /* Blue border around image */
+}
+
+.user-name {
+  margin: 5px 0;
+  font-size: 18px;
+  color: #2c3e50; /* Darker text */
+}
+
+.user-email {
+  margin: 5px 0 15px;
+  font-size: 14px;
+  color: #666;
+}
+
+.user-profile-btn {
+  padding: 8px 16px;
+  background-color: #0056b3; /* Solid blue button */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.user-profile-btn:hover {
+  background-color: #004494; /* Darker blue on hover */
+}
