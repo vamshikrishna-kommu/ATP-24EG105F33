@@ -78,5 +78,5 @@ app.use((err, req, res, next) => {
   }
 
   //send server side error
-  res.status(500).json({ message: "error occurred", error: "Server side error" });
+  res.status(500).json({ message: "error occurred", error: err.message || "Server side error" });
 });
