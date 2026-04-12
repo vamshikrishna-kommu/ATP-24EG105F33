@@ -1,52 +1,53 @@
-//create express app
-import exp, { response } from 'express'
-import {connect} from 'mongoose'
-import { empApp } from './APIs/employeeAPI.js'
+import express from 'express';
+import { connect } from 'mongoose';
+import { employeeRoutes } from './APIs/employeeAPI.js';
 import { config } from 'dotenv';
 import cors from 'cors';
-config();//process .env.PORT,process.env.DB_URL
 
-const app = exp()
-//add cors middleware
+// Initialize environment variables processing
+config();
+
+const app = express();
+
+// Apply Cross-Origin Resource Sharing
 app.use(cors({
-  origin:['http://localhost:5173']
-}))
-app.use(exp.json());
-//forward req to empApp if path starts with /employee-api
-app.use('/employee-api',empApp);
-//connect to DB server
-const port = process.env.PORT||3000
-async function connectDB(){
-  try{
-  await connect(process.env.DB_URL)
-  console.log("DB connection success")
+  origin: ['http://localhost:5173']
+}));
 
-  //start server
-  app.listen(port,()=>{
-  console.log("server on port 3000..")
-})
+// Setup JSON parsing middleware
+app.use(express.json());
 
-}catch(err){
-  console.log("err in DB connection : ",err)
-}
-}
-connectDB();
+// Forward requests to employee router
+app.use('/employee-api', employeeRoutes);
 
-//error handling middleware
-app.use((err,req,res,next)=>{
-  console.log(err)
+const APIPort = process.env.PORT || 3000;
 
-  if(err.name==="ValidationError"){
-    return res.status(400).json({message:"error occured ",error:err.message})
+// Database connection initialization
+async function initializeDatabase() {
+  try {
+    await connect(process.env.DB_URL);
+    console.log("Database connection established successfully!");
+
+    // Start listening for requests
+    app.listen(APIPort, () => {
+      console.log(`Backend API actively running on port ${APIPort}...`);
+    });
+  } catch (error) {
+    console.log("Database connection failed: ", error);
   }
-  if(err.name==="CastError"){
-    return res.status(400).json({message:"error occured ",error:err.message})
+}
+
+// Execute connection
+initializeDatabase();
+
+// Global Error Handling Middleware
+app.use((error, request, response, next) => {
+  console.log("Error Encountered:", error.message);
+
+  if (error.name === "ValidationError" || error.name === "CastError") {
+    return response.status(400).json({ message: "Invalid data format provided", error: error.message });
   }
 
-  //send server side error 
-  res.status(500).json({message:"error occurred",error:"server side error"})
-
-
-})
-
-//error =>{name,message,callstack}
+  // Handle generic server faults
+  response.status(500).json({ message: "Internal server error", error: "server side error" });
+});

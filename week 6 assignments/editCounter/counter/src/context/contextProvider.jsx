@@ -1,23 +1,21 @@
-import { useState,createContext } from "react"
+import { useState, createContext } from "react"
 
-//create context provider object
-export const counterContextObj = createContext();
+// Create customized context for counter tracking
+export const TrackerContext = createContext();
 
-function ContextProvider({children}) {
-  //state
-  const [counter,setCounter] = useState(0);
-  //functions to change state
-  const increment=()=>{
-    setCounter(counter+1);
-  }
-  const decrement=()=>{
-    setCounter(counter-1);
-  }
+function AppContextProvider({ children }) {
+  // Track numerical value
+  const [trackerValue, setTrackerValue] = useState(0);
+
+  // Handlers for state modification
+  const handleUp = () => setTrackerValue(prev => prev + 1);
+  const handleDown = () => setTrackerValue(prev => prev - 1);
+
   return (
-    <counterContextObj.Provider value = {{counter,increment,decrement}}>
+    <TrackerContext.Provider value={{ trackerValue, handleUp, handleDown }}>
       {children}
-    </counterContextObj.Provider>
+    </TrackerContext.Provider>
   )
 }
 
-export default ContextProvider;
+export default AppContextProvider;

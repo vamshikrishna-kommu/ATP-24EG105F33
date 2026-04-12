@@ -1,52 +1,45 @@
-import exp from 'express';
+import express from 'express';
 import { EmployeeModel } from '../Models/EmployeeModel.js';
 
+export const employeeRoutes = express.Router();
 
-export const empApp = exp.Router()
+// Create new employee profile
+employeeRoutes.post("/employee", async (request, response) => {
+  const employeeData = request.body;
+  const newEmpDoc = new EmployeeModel(employeeData);
+  const result = await newEmpDoc.save();
+  
+  response.status(201).json({ message: "employee created successfully" });
+});
 
-//creating employee
-empApp.post("/employee",async (req,res)=>{
-  //get new employee object from req
-  const newEmployee = req.body;
-  //create new employee document 
-  const newEmployeeDocument = new EmployeeModel(newEmployee)
-  //save
-  const result = await newEmployeeDocument.save()
-  //send res 
-  res.status(201).json({message: "employee created"});
-})
+// Retrieve all employee records
+employeeRoutes.get('/employees', async (request, response) => {
+  const allEmployees = await EmployeeModel.find();
+  response.status(200).json({ message: "employees retrieved", payLoad: allEmployees });
+});
 
-
-//reading all employees
-empApp.get('/employees',async (req,res)=>{
-  //read all employees
-  let employeeList = await EmployeeModel.find();
-  //send res
-  res.status(200).json({message:"employees",payLoad:employeeList})
-})
-
-//upadte the employee
-empApp.put('/employee/:id',async(req,res)=>{
-  //get employee by id
-  const empID=req.params.id;
-  const modifiedEmployee=req.body;
-  //update employee
-  const updatedEmployee = await EmployeeModel.findByIdAndUpdate(empID,{$set:{...modifiedEmployee}},{new:true})
-  //if no employee found
-  if(!updatedEmployee){
-    res.status(400).json({message:"employee not found"})
+// Modify existing employee data
+employeeRoutes.put('/employee/:id', async (request, response) => {
+  const targetId = request.params.id;
+  const updatedData = request.body;
+  
+  const resultEmp = await EmployeeModel.findByIdAndUpdate(
+    targetId, 
+    { $set: { ...updatedData } }, 
+    { new: true }
+  );
+  
+  if (!resultEmp) {
+    return response.status(400).json({ message: "employee not found" });
   }
-  //send res
-  res.status(200).json({message:"employee Updated.",payLoad:updatedEmployee})
-})
+  
+  response.status(200).json({ message: "employee Updated.", payLoad: resultEmp });
+});
 
-//delete employee 
-empApp.delete('/employee/:id',async (req,res)=>{
-  //get deleted id from re
-  const deleteId=req.params.id;
-  //find by id and delete
-  const deletedEmployee=await EmployeeModel.findByIdAndDelete(deleteId);
-  //send res
-  res.status(200).json({message:"employee deleted.",payLoad:deletedEmployee});
-})
-
+// Remove employee record
+employeeRoutes.delete('/employee/:id', async (request, response) => {
+  const targetId = request.params.id;
+  const deletedEmp = await EmployeeModel.findByIdAndDelete(targetId);
+  
+  response.status(200).json({ message: "employee deleted.", payLoad: deletedEmp });
+});

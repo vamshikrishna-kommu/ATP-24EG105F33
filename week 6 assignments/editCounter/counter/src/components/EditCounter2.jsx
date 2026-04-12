@@ -1,35 +1,30 @@
 import { useContext } from "react";
-import { counterContextObj } from "../context/contextProvider";
+import { TrackerContext } from "../context/contextProvider";
 
 function EditCounter2() {
-  const { counter, increment, decrement } = useContext(counterContextObj);
+  const { trackerValue, handleUp, handleDown } = useContext(TrackerContext);
 
   return (
-    <div className="border border-gray-300 rounded p-6 w-44 text-center">
-      
-      <h1 className="text-lg font-semibold text-gray-700 mb-3">
-        Counter 2
-      </h1>
-
-      <h1 className="text-3xl font-bold mb-4">{counter}</h1>
-
-      <div className="flex justify-center gap-4">
+    <article className="border-2 border-slate-200 rounded-lg p-5 w-48 text-center bg-white shadow-sm hover:shadow-md transition-shadow">
+      <h2 className="text-xl font-medium text-slate-800 mb-2">
+        Counter Block 2
+      </h2>
+      <div className="text-4xl font-extrabold text-slate-900 mb-5">{trackerValue}</div>
+      <div className="flex justify-evenly gap-2">
         <button
-          onClick={increment}
-          className="bg-blue-500 text-white px-4 py-2 rounded"
+          onClick={handleUp}
+          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center transition-colors"
         >
           +
         </button>
-
         <button
-          onClick={decrement}
-          className="bg-red-500 text-white px-4 py-2 rounded"
+          onClick={handleDown}
+          className="bg-rose-500 hover:bg-rose-600 text-white font-bold w-10 h-10 rounded-full flex items-center justify-center transition-colors"
         >
           -
         </button>
       </div>
-
-    </div>
+    </article>
   );
 }
 

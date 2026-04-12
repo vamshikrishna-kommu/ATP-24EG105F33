@@ -1,16 +1,17 @@
-import Content from "./components/Content"
-import Footer from "./components/Footer"
-import Header from "./components/Header"
+import MainContent from "./components/Content"
+import PageFooter from "./components/Footer"
+import PageHeader from "./components/Header"
 
+// Main application container
 function App() {
   return (
-    <div>
-      <Header/>
-      <div>
-        <Content/>
-      </div>
-      <Footer/>
-    </div>
+    <main className="app-container">
+      <PageHeader />
+      <section className="content-wrapper">
+        <MainContent />
+      </section>
+      <PageFooter />
+    </main>
   )
 }
 
