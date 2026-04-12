@@ -50,6 +50,15 @@ async function initializeDatabase() {
 // Execute connection
 initializeDatabase();
 
+// React fall-back route for Express 5.x
+app.use((req, res, next) => {
+  if (req.method === 'GET' && !req.path.startsWith('/employee-api')) {
+    res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+  } else {
+    next();
+  }
+});
+
 // Global Error Handling Middleware
 app.use((error, request, response, next) => {
   console.log("Error Encountered:", error.message);
@@ -60,9 +69,4 @@ app.use((error, request, response, next) => {
 
   // Handle generic server faults
   response.status(500).json({ message: "Internal server error", error: "server side error" });
-});
-
-// React fall-back route
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
