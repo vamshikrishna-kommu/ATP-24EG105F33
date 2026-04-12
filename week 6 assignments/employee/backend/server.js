@@ -35,7 +35,10 @@ const APIPort = process.env.PORT || 3000;
 // Database connection initialization
 async function initializeDatabase() {
   try {
-    const databaseUrl = process.env.DB_URL || "mongodb+srv://admin:Vamshi123@cluster0.2fawd09.mongodb.net/Employees?retryWrites=true&w=majority";
+    const databaseUrl = (process.env.DB_URL === undefined || process.env.DB_URL.includes('localhost')) 
+      ? 'mongodb+srv://admin:Vamshi123@cluster0.2fawd09.mongodb.net/Employees?retryWrites=true&w=majority'
+      : process.env.DB_URL;
+      
     await connect(databaseUrl);
     console.log("Database connection established successfully!");
   } catch (error) {
