@@ -37,18 +37,18 @@ async function initializeDatabase() {
   try {
     await connect(process.env.DB_URL);
     console.log("Database connection established successfully!");
-
-    // Start listening for requests
-    app.listen(APIPort, () => {
-      console.log(`Backend API actively running on port ${APIPort}...`);
-    });
   } catch (error) {
-    console.log("Database connection failed: ", error);
+    console.log("Database connection failed: ", error, " (Please check your DB_URL)");
   }
 }
 
 // Execute connection
 initializeDatabase();
+
+// Start listening for requests regardless of database status
+app.listen(APIPort, () => {
+  console.log(`Backend API actively running on port ${APIPort}...`);
+});
 
 // React fall-back route for Express 5.x
 app.use((req, res, next) => {
