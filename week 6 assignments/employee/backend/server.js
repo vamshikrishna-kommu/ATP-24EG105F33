@@ -1,5 +1,6 @@
 import express from 'express';
-import { connect } from 'mongoose';
+import mongoose from 'mongoose';
+const { connect } = mongoose;
 import { employeeRoutes } from './APIs/employeeAPI.js';
 import { config } from 'dotenv';
 import cors from 'cors';
@@ -19,6 +20,15 @@ app.use(express.json());
 
 // Forward requests to employee router
 app.use('/employee-api', employeeRoutes);
+
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Serve frontend static files
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 const APIPort = process.env.PORT || 3000;
 
@@ -50,4 +60,9 @@ app.use((error, request, response, next) => {
 
   // Handle generic server faults
   response.status(500).json({ message: "Internal server error", error: "server side error" });
+});
+
+// React fall-back route
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
 });
