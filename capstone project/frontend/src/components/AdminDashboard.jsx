@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import { Users, BookOpen, PenTool, TrendingUp } from "lucide-react";
 import { loadingClass, errorClass } from "../styles/common";
 
@@ -12,7 +12,7 @@ function AdminDashboard() {
     const fetchStats = async () => {
       try {
         setLoading(true);
-        const res = await axios.get("http://localhost:4000/admin-api/dashboard-stats", { withCredentials: true });
+        const res = await axiosInstance.get("/admin-api/dashboard-stats");
         if (res.status === 200) {
           setStats(res.data.payload);
         }

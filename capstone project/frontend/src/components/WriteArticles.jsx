@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import {toast} from 'react-hot-toast'
 import { useNavigate } from "react-router";
 
@@ -37,7 +37,7 @@ function WriteArticles() {
       //set loading true
       setLoading(true);
       //make POST req to save new article
-      let res = await axios.post("http://localhost:4000/author-api/article", articleObj, { withCredentials: true });
+      let res = await axiosInstance.post("/author-api/article", articleObj);
       //navigate to AuthorArticles
       if (res.status === 201) {
         toast.success("Article published successfully")

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 import { toast } from "react-hot-toast";
 import { loadingClass, errorClass } from "../styles/common";
 
@@ -11,7 +11,7 @@ function ManageArticles() {
   const fetchArticles = async () => {
     try {
       setLoading(true);
-      const res = await axios.get("http://localhost:4000/admin-api/all-articles", { withCredentials: true });
+      const res = await axiosInstance.get("/admin-api/all-articles");
       if (res.status === 200) {
         setArticles(res.data.payload);
       }
@@ -32,10 +32,9 @@ function ManageArticles() {
     if (!window.confirm(confirmMsg)) return;
 
     try {
-      const res = await axios.patch(
-        "http://localhost:4000/admin-api/article-status",
-        { articleId, isArticleActive: newStatus },
-        { withCredentials: true }
+      const res = await axiosInstance.patch(
+        "/admin-api/article-status",
+        { articleId, isArticleActive: newStatus }
       );
 
       if (res.status === 200) {
