@@ -1,40 +1,19 @@
-// 💡 Exercise 2: Update User Object
-                        
-//                         Goal: Learn object cloning & adding new property
-                        
-//                         You are given:
-                                
-//                                 let user = {
-//                                   name: "Ravi",
-//                                   city: "Hyderabad"
-//                                 };
-                        
-                        
-                        
-//                         Tasks
-                        
-//                               -> Create a new object updatedUser
-                              
-//                               -> Copy all properties from user
-                              
-//                               -> Add a new property age: 25
-                              
-//                               -> Print both objects
-                        
-                        
-                        
-//                         ✅ Expected Output
-//                               { name: "Ravi", city: "Hyderabad" }
-//                               { name: "Ravi", city: "Hyderabad", age: 25 }
-                        
-//                         👉 Original object should remain unchanged.
+/**
+ * Exercise 2: Update User Object
+ * Demonstrates cloning an object and adding new properties using the spread operator.
+ */
 
-
-
-let user = {
+const user = {
   name: "Ravi",
-  city: "Hyderabad"
+  city: "Hyderabad",
 };
-let updatedUser = {...user, age: 25};
-console.log(user);
-console.log(updatedUser);
+
+// Create a new object updatedUser by copying 'user' and adding 'age'
+const updatedUser = { ...user, age: 25 };
+
+console.log("Original User Object:", user);
+console.log("Updated User Object:", updatedUser);
+
+if (!user.age && updatedUser.age) {
+  console.log("\nSuccess: Original object remains unchanged, and the new object has the 'age' property.");
+}

@@ -1,67 +1,67 @@
-//create express app
-import exp from "express";
+import express from "express";
 import { connect } from "mongoose";
-
-//import APIs
+import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 import { userApp } from "./APIs/userAPI.js";
 import { productApp } from "./APIs/productAPI.js";
-import cookieParser from "cookie-parser";
 
+// Initialize environment variables
+dotenv.config();
 
-const app = exp();
+const app = express();
+const port = process.env.PORT || 4000;
+const dbUrl = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/backendDB";
 
+// Middleware
+app.use(express.json());
+app.use(cookieParser());
 
-//parse incoming JSON requests
-app.use(exp.json())
-//add cookie parser middleware
-app.use(cookieParser())
+// Custom Logger Middleware
+app.use((req, res, next) => {
+    console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+    next();
+});
 
-//JSON parse error handler
-app.use((err,req,res,next)=>{
-    console.log("error in parsing json : ",err);
-    res.status(400).json({message:"invalid JSON"})
-})
+// JSON parse error handler
+app.use((err, req, res, next) => {
+    if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
+        return res.status(400).json({ message: "Invalid JSON format" });
+    }
+    next();
+});
 
+// APIs
+app.use("/user-api", userApp);
+app.use("/product-api", productApp);
 
-//forward request to user API
-app.use("/user-api", userApp)
+// Database Connection & Server Start
+async function startApp() {
+    try {
+        await connect(dbUrl);
+        console.log("Connected to MongoDB successfully");
 
-//forward request to product API
-app.use("/product-api", productApp)
-
-
-//connect to database server
-async function connectDB(){
-    try{
-
-        await connect("mongodb://127.0.0.1:27017/backendDB")
-
-        console.log("DB connection successful")
-
-        //start server
-        app.listen(4000,()=>console.log("server is running on port 4000...."))
-
-    }catch(err){
-        console.log("error in DB connection : ",err);
+        app.listen(port, () => {
+            console.log(`Backend server is running on http://localhost:${port}`);
+        });
+    } catch (err) {
+        console.error("Database connection failed:", err.message);
+        process.exit(1);
     }
 }
 
-connectDB();
+startApp();
 
+// Global Error Handling Middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
 
-//global error handling middleware
-app.use((err,req,res,next)=>{
-
-    //validation error
-    if(err.name=='ValidationError'){
-        return res.status(400).json({message:"error occured",error:err.message})
+    if (err.name === 'ValidationError') {
+        return res.status(400).json({ message: "Validation Error", error: err.message });
     }
 
-    //cast error
-    if(err.name=='CastError'){
-        return res.status(400).json({message:"error occured",error:err.message})
+    if (err.name === 'CastError') {
+        return res.status(400).json({ message: "Invalid Resource ID", error: err.message });
     }
 
-    //server error
-    res.status(500).json({message:"error occured",error:"server error"})
-})
+    res.status(500).json({ message: "Internal Server Error", error: err.message });
+});

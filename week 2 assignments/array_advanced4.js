@@ -1,45 +1,37 @@
-// ASSIGNMENT 1:
-// -------------
-// You are building a shopping cart summary for an e-commerce website.
-
-// Test Data : 
-// const cart = [
-//   { id: 101, name: "Laptop", price: 60000, quantity: 1, inStock: true },
-//   { id: 102, name: "Mouse", price: 800, quantity: 2, inStock: true },
-//   { id: 103, name: "Keyboard", price: 1500, quantity: 1, inStock: false },
-//   { id: 104, name: "Monitor", price: 12000, quantity: 1, inStock: true }
-// ];
-
-// Tasks:
-//     1. Use filter() to get only inStock products
-//     2. Use map() to create a new array with:  { name, totalPrice }
-//     3. Use reduce() to calculate grand total cart value
-//     4. Use find() to get details of "Mouse"
-//     5. Use findIndex() to find the position of "Keyboard"
+/**
+ * Assignment 4: E-commerce Cart Summary
+ * Manages a shopping cart using array methods.
+ */
 
 const cart = [
-   { id: 101, name: "Laptop", price: 60000, quantity: 1, inStock: true },
-   { id: 102, name: "Mouse", price: 800, quantity: 2, inStock: true },
-   { id: 103, name: "Keyboard", price: 1500, quantity: 1, inStock: false },
-   { id: 104, name: "Monitor", price: 12000, quantity: 1, inStock: true }
- ];
+  { id: 101, name: "Laptop", price: 60000, quantity: 1, inStock: true },
+  { id: 102, name: "Mouse", price: 800, quantity: 2, inStock: true },
+  { id: 103, name: "Keyboard", price: 1500, quantity: 1, inStock: false },
+  { id: 104, name: "Monitor", price: 12000, quantity: 1, inStock: true },
+];
 
- //1. Use filter() to get only inStock products
-    let r1=cart.filter(element=>element.inStock==true)
-    console.log("inStock products are ",r1)
-//2. Use map() to create a new array with:  { name, totalPrice }
-    let r2=cart.map(element=>{
-        return {
-            name:element.name,totalPrice:element.price*element.quantity
-        }
-    })
-    console.log("array with name and totalPrice is ",r2)
-//3. Use reduce() to calculate grand total cart value
-    let r3=cart.reduce((accumulator,element)=>accumulator+element.price*element.quantity,0)
-    console.log("grand total cart value is ",r3)
-//4. Use find() to get details of "Mouse"
-    let r4=cart.find(element=>element.name=="Mouse")
-    console.log("details of Mouse are ",r4)
-//5. Use findIndex() to find the position of "Keyboard"
-    let r5=cart.findIndex(element=>element.name=="Keyboard")
-    console.log("position of Keyboard is ",r5)
+console.log("Current Cart:", cart);
+
+// 1. filter() to get only inStock products
+const availableProducts = cart.filter((item) => item.inStock);
+console.log("In-Stock Products:", availableProducts);
+
+// 2. map() to create a new array with: { name, totalPrice }
+const cartSummary = cart.map((item) => ({
+  name: item.name,
+  totalPrice: item.price * item.quantity,
+}));
+console.log("Cart Summary (Name & Total):", cartSummary);
+
+// 3. reduce() to calculate grand total cart value
+const grandTotal = cart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+console.log(`Grand Total Cart Value: ₹${grandTotal}`);
+
+// 4. find() to get details of "Mouse"
+const mouseDetails = cart.find((item) => item.name === "Mouse");
+console.log("Details for 'Mouse':", mouseDetails);
+
+// 5. findIndex() to find the position of "Keyboard"
+const keyboardIndex = cart.findIndex((item) => item.name === "Keyboard");
+console.log("Index of 'Keyboard':", keyboardIndex);
+

@@ -1,13 +1,13 @@
-// question 6 - write a function that receives an array as arg and return their sum 
-a=[10,20,30,40,50];
-sum=0;
-function findsum(a)
-{
-    for(let i=0; i<a.length; i++)
-    {
-        sum += a[i];
-    }
-    return sum;
-}
-let result = findsum(a);
-console.log("the sum of the array is "+result);
+/**
+ * Function that receives an array and returns the sum of its elements.
+ * @param {number[]} arr 
+ * @returns {number} The sum of elements.
+ */
+const findSum = (arr) => {
+  return arr.reduce((acc, curr) => acc + curr, 0);
+};
+
+const numbers = [10, 20, 30, 40, 50];
+const total = findSum(numbers);
+
+console.log(`The sum of the array [${numbers}] is: ${total}`);

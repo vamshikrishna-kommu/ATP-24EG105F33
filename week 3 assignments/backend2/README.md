@@ -1,34 +1,53 @@
-###steps to create backend with database
+# Backend 2: Advanced Express.js with MongoDB
 
-1.generate package.json-------npm init -y
+A comprehensive full-stack backend demonstration using Express.js, Mongoose, and JWT Authentication.
 
-2.create express server
+## Features
+- **JWT Authentication**: Secure login flow with JSON Web Tokens stored in HttpOnly cookies.
+- **Mongoose Integration**: Modular schemas for Users and Products with automatic validation.
+- **Protected Routes**: Middleware (`verifyToken`) to restrict access to sensitive endpoints.
+- **Shopping Cart Logic**: Dynamic cart management (Add/Update/Delete) with Mongoose sub-documents.
+- **Enhanced Error Handling**: Centralized middleware to handle Validation, Cast, and Server errors.
+- **Environment Configuration**: Uses `dotenv` for secure management of database URLs and secrets.
 
-3.install mangoose and connect to the mongodb server
-    --REST API -- MongoDB native driver => DB server
-    --REST API -- Mongoose ODM tool => DB server
+## Tech Stack
+- **Node.js & Express.js**: Server framework.
+- **MongoDB & Mongoose**: Database and ODM.
+- **Bcrypt.js**: Password hashing for security.
+- **JSONWebToken**: Secure authentication.
+- **Cookie-Parser**: Handling client-side tokens.
 
-4.build USER REST API
-    --create user
-    --read all users
-    --read a user by id
-    --update a user by id
-    --delelete a user by id
-    
-5.create schema and model of the resource(user)
+## Project Structure
+- `server.js`: Application entry point and DB connection logic.
+- `model/`: Mongoose schemas (`UserModel.js`, `ProductModel.js`).
+- `APIs/`: Controller/Route logic (`userAPI.js`, `productAPI.js`).
+- `middlewares/`: Security and validation logic (`verifyToken.js`).
+- `auth/`: Authentication utilities.
 
-6.create user api and define the routes
+## Setup Instructions
+1. Navigate to the `backend2` directory.
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Configure your environment in `.env`:
+   ```env
+   MONGODB_URI=mongodb://127.0.0.1:27017/backendDB
+   PORT=4000
+   JWT_SECRET=your_secret_key
+   ```
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-USER AUTHENTICATION (login)
-    -submit credentials and get token
+## Key API Endpoints
+### User & Auth
+- `POST /user-api/auth`: Login and receive HttpOnly cookie.
+- `POST /user-api/users`: Register a new user.
+- `GET /user-api/user`: Get current logged-in user profile.
+- `PUT /user-api/cart/product-id/:pid`: Add a product to the user's cart.
 
-
-    -public routes(by anyone)
-    -private routes(bu authenticated users only)
-
-
-
-
-
-
-    3.cookies will send along with request automatically in same origin request , but for cross origin request , the token should be explicitly included to the request
+### Products
+- `GET /product-api/products`: Retrieve all products.
+- `POST /product-api/product`: Add a new product to the database.

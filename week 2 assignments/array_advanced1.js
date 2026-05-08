@@ -1,32 +1,29 @@
-// Assignment 1: Daily Temperature Analyzer
-// ----------------------------------------
-// Scenario : You are analyzing daily temperatures recorded by a weather app.
+/**
+ * Assignment 1: Daily Temperature Analyzer
+ * Demonstrates the use of filter, map, reduce, find, and findIndex on numeric arrays.
+ */
 
-// Test data:
-// const temperatures = [32, 35, 28, 40, 38, 30, 42];
+const temperatures = [32, 35, 28, 40, 38, 30, 42];
+console.log("Original Temperatures (Celsius):", temperatures);
 
-// Tasks:
-//     1. filter() temperatures above 35
-//     2. map() to convert all temperatures from Celsius → Fahrenheit
-//     3. reduce() to calculate average temperature
-//     4. find() first temperature above 40
-//     5. findIndex() of temperature 28
+// 1. filter() temperatures above 35
+const hotDays = temperatures.filter((temp) => temp > 35);
+console.log("Temperatures above 35°C:", hotDays);
 
-let temperatures=[32, 35, 28, 40, 38, 30, 42]
-console.log("temperatures are ",temperatures)
-//1. filter() temperatures above 35
-    let r1=temperatures.filter(element=>element>35)
-    console.log("temperatures above 35 are ",r1)
-//2. map() to convert all temperatures from Celsius → Fahrenheit
-    let r2=temperatures.map(element=>element*9/5+32)
-    console.log("temperatures in fahrenheit are ",r2)
-//3. reduce() to calculate average temperature
-    let sum=temperatures.reduce((accumulator,element)=>accumulator+element)
-    let r3=sum/temperatures.length
-    console.log("average temperature is ",r3)
-//4. find() first temperature above 40
-    let r4=temperatures.find(element=>element>40)
-    console.log("first temperature above 40 is ",r4)
-//5. findIndex() of temperature 28
-    let r5=temperatures.findIndex(element=>element==28)
-    console.log("index of temperature 28 is ",r5)
+// 2. map() to convert all temperatures from Celsius to Fahrenheit
+const temperaturesInFahrenheit = temperatures.map((temp) => (temp * 9) / 5 + 32);
+console.log("Temperatures in Fahrenheit:", temperaturesInFahrenheit);
+
+// 3. reduce() to calculate average temperature
+const totalTemp = temperatures.reduce((acc, temp) => acc + temp, 0);
+const averageTemp = totalTemp / temperatures.length;
+console.log("Average Temperature:", averageTemp.toFixed(2), "°C");
+
+// 4. find() first temperature above 40
+const firstHighTemp = temperatures.find((temp) => temp > 40);
+console.log("First temperature above 40°C:", firstHighTemp);
+
+// 5. findIndex() of temperature 28
+const indexAt28 = temperatures.findIndex((temp) => temp === 28);
+console.log("Index of 28°C:", indexAt28);
+

@@ -13,7 +13,7 @@ function CreateEmp() {
     formState: { errors },
   } = useForm();
 
-  //form submit
+  //form submit 
   const onFormSubmit = async (newEmpObj) => {
     try {
       setLoading(true);
@@ -86,7 +86,7 @@ function CreateEmp() {
           {...register("companyName")}
           className="mb-3 border-2 p-3 w-full rounded-2xl"
         />
-
+        
         <button type="submit" className="text-2xl rounded-2xl bg-gray-600 text-white block mx-auto p-4">
           Add Emp
         </button>

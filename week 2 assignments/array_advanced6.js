@@ -1,6 +1,7 @@
-// ASSIGNMENT 4: 
-// ------------
-// Movie Streaming Platform
+/**
+ * Assignment 6: Movie Streaming Platform
+ * Manages movie data for a recommendation system using array methods.
+ */
 
 // You are working on a movie recommendation system.
 

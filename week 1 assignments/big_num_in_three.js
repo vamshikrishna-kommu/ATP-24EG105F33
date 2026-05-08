@@ -1,17 +1,19 @@
-// question 2 - find the big number in given three numbers
-let a=10;
-let b=20;
-let c=30;
+/**
+ * Script to find the largest of three given numbers.
+ */
 
-if(a>b && a>c){
-    console.log("a is big number");
-}
-else if(b>a && b>c){
-    console.log("b is big number");
-}
-else if(c>a && c>b){
-    console.log(" c is the big number");
-}
-else{
-    console.log("all the numbers are equal");
-}
+const a = 10;
+const b = 20;
+const c = 30;
+
+if (a > b && a > c) {
+  console.log(`${a} (a) is the largest number.`);
+} else if (b > a && b > c) {
+  console.log(`${b} (b) is the largest number.`);
+} else if (c > a && c > b) {
+  console.log(`${c} (c) is the largest number.`);
+} else if (a === b && b === c) {
+  console.log("All numbers are equal.");
+} else {
+  console.log("There is no single largest number (multiple numbers are tied for largest).");
+}

@@ -1,22 +1,25 @@
-// 2.OTP Countdown Simulator (Console App)
-// ------------------------------------
-        
-//         Simulate OTP sending flow in Node.js:
-        
-//         Show “OTP Sent Successfully”
-        
-//         Start 10-second countdown
-        
-//         Allow resend only after countdown ends
+/**
+ * Assignment: OTP Countdown Simulator (Console App)
+ * Demonstrates the use of setInterval() for a real-world countdown scenario.
+ */
 
-console.log("OTP Sent Successfully");
-let countdown = 10;
-const intervalId = setInterval(() => {
-    countdown--;
-    console.log(`Resend OTP in ${countdown} seconds...`);
-    if (countdown == 0) {
-        console.log("You can now resend the OTP.");
-        clearInterval(intervalId);
+const startOTPCountdown = (seconds = 10) => {
+  console.log("OTP Sent Successfully! 📩");
+  
+  let remainingTime = seconds;
+
+  const intervalId = setInterval(() => {
+    remainingTime--;
+
+    if (remainingTime > 0) {
+      console.log(`Resend OTP in ${remainingTime} seconds...`);
+    } else {
+      console.log("--- Ready ---");
+      console.log("You can now resend the OTP. 🔄");
+      clearInterval(intervalId);
     }
-}, 1000);
+  }, 1000);
+};
+
+startOTPCountdown(10);
 

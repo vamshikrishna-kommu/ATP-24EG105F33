@@ -1,31 +1,16 @@
-// 💡 Exercise 1: Copy & Extend an Array
+/**
+ * Exercise 1: Copy & Extend an Array
+ * Demonstrates the use of the spread operator to clone and extend arrays without mutating the original.
+ */
 
-//                         Goal: Learn array copying with spread
-                        
-//                         You are given:
-//                                 let fruits = ["apple", "banana"];
-                        
-                        
-//                         Tasks
-//                               -> Create a new array moreFruits
-                              
-//                               -> Copy all fruits from fruits
-                              
-//                               -> Add "orange" at the end using spread
-                              
-//                               -> Print both arrays
-                        
-                        
-//                         ✅ Expected Output
-//                               ["apple", "banana"]
-//                               ["apple", "banana", "orange"]
-                        
-//                         👉 Original array should NOT change.
+const fruits = ["apple", "banana"];
 
+// Create a new array moreFruits by copying 'fruits' and adding "orange"
+const moreFruits = [...fruits, "orange"];
 
+console.log("Original Fruits Array:", fruits);
+console.log("Extended Fruits Array (moreFruits):", moreFruits);
 
-let fruits = ["apple", "banana"];
-// Create a new array moreFruits and copy all fruits from fruits, then add "orange" at the end using spread
-let moreFruits = [...fruits, "orange"];
-console.log(fruits);        
-console.log(moreFruits);    
+if (fruits.length !== moreFruits.length) {
+  console.log("\nSuccess: Original array remains unchanged.");
+}

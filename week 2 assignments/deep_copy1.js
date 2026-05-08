@@ -1,47 +1,34 @@
-// Hands-On 2: Deep Copy (Isolation & Safety Use Case)
-// ---------------------------------------------------
-
-// 🧪 Given Data:
-//                 const order = {
-//                   orderId: "ORD1001",
-//                   customer: {
-//                     name: "Anita",
-//                     address: {
-//                       city: "Hyderabad",
-//                       pincode: 500085
-//                     }
-//                   },
-//                   items: [
-//                     { product: "Laptop", price: 70000 }
-//                   ]
-//                 };
-
-// 🎯 Task:
-//       1. Create a deep copy of order
-//       2. Modify in copied object:
-//             i. customer.address.city
-//             ii. items[0].price
-//             iii. Verify original object remains unchanged
-
-
+/**
+ * Hands-On 2: Deep Copy (Isolation & Safety Use Case)
+ * Demonstrates the use of structuredClone() to create an independent copy of a nested object.
+ */
 
 const order = {
-                  orderId: "ORD1001",
-                  customer: {
-                    name: "Anita",
-                    address: {
-                      city: "Hyderabad",
-                      pincode: 500085
-                    }
-                  },
-                  items: [
-                    { product: "Laptop", price: 70000 }
-                  ]
-                };
+  orderId: "ORD1001",
+  customer: {
+    name: "Anita",
+    address: {
+      city: "Hyderabad",
+      pincode: 500085,
+    },
+  },
+  items: [{ product: "Laptop", price: 70000 }],
+};
 
-const copyOrder=structuredClone(order);
-copyOrder.customer.address.city='hyd';//address changed in copied order
-copyOrder.items[0].price=100000;//price changed in copied order
+// 1. Create a deep copy of order
+const copiedOrder = structuredClone(order);
 
-console.log(order);
-console.log(copyOrder);
+// 2. Modify properties in the copied object
+copiedOrder.customer.address.city = "Bangalore";
+copiedOrder.items[0].price = 85000;
+
+console.log("--- Deep Copy Verification ---");
+console.log("Original Order City:", order.customer.address.city); // Should be Hyderabad
+console.log("Copied Order City:", copiedOrder.customer.address.city); // Should be Bangalore
+
+console.log("\nOriginal Order Price:", order.items[0].price); // Should be 70000
+console.log("Copied Order Price:", copiedOrder.items[0].price); // Should be 85000
+
+if (order.customer.address.city !== copiedOrder.customer.address.city) {
+  console.log("\nSuccess: Deep copy successful. Original object remains unchanged.");
+}

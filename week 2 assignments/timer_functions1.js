@@ -1,18 +1,23 @@
-// 1.Exam portal simulator:
-// -----------------------------
-// When a student submits an exam:
+/**
+ * Assignment: Exam Portal Simulator
+ * Demonstrates the use of setTimeout() to schedule delayed execution of code.
+ */
 
-//         Immediately show: “Exam submitted successfully”
-//         After 2 seconds → show: “Evaluating answers…”
-//         After 4 seconds → show: “Result: Pass”
+const simulateExamSubmission = () => {
+  console.log("--- Exam Portal Activity ---");
+  
+  // Step 1: Immediate feedback
+  console.log("Exam submitted successfully.");
 
-
-
-console.log("Exam submitted successfully");
-setTimeout(() => {
+  // Step 2: Evaluation phase (after 2 seconds)
+  setTimeout(() => {
     console.log("Evaluating answers...");
-}, 2000);
+  }, 2000);
 
-setTimeout(() => {
-    console.log("Result: Pass");
-}, 4000);
+  // Step 3: Result phase (after 4 seconds)
+  setTimeout(() => {
+    console.log("Result: Pass ✅");
+  }, 4000);
+};
+
+simulateExamSubmission();
